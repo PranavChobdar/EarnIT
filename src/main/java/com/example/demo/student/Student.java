@@ -1,29 +1,32 @@
 package com.example.demo.student;
 
-import com.example.demo.user.User;
+import com.example.demo.account.Account;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-//@Table //THIS
-//@DiscriminatorValue("1")
-@PrimaryKeyJoinColumn(name = "uid")
-public class Student extends User {
+@Table(name="students")
+//@PrimaryKeyJoinColumn(name = "uid") // --> This is an inheritance mapping strategy. It requires a join with database.User every time we want to use database.Student, so instead @JoinColumn is used
+public class Student{
 
-//    @SequenceGenerator(
-//            name = "student_sequence",
-//            sequenceName = "student_sequence",
-//            allocationSize = 1
-//    )
-//    @GeneratedValue(
-//            strategy = GenerationType.SEQUENCE,
-//            generator = "student_sequence"
-//    )
+
+    @Id
+    @GeneratedValue
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "student_id")
     protected UUID sid;
-//    @JoinColumn(foreignKey = @ForeignKey(name = "user"))
-//    protected UUID uid;
+
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account; //remove
     protected String name;
     protected LocalDate dob;
     protected String university;
@@ -34,12 +37,21 @@ public class Student extends User {
         super();
     }
 
-    public Student(UUID uid,String email, String password, UUID sid, String name, LocalDate dob, String university, String course, String skills) {
-//        this.uid = uid;
-//        this.email = email;
-//        this.password = password;
-        super(uid, 1, email, password);
-        this.sid = UUID.randomUUID();
+//    public Student(UUID uid,String email, String password, UUID sid, String name, LocalDate dob, String university, String course, String skills) {
+////        this.uid = uid;
+////        this.email = email;
+////        this.password = password;
+//        super(uid, 1, email, password);
+//        this.sid = UUID.randomUUID();
+//        this.name = name;
+//        this.dob = dob;
+//        this.university = university;
+//        this.course = course;
+//        this.skills = skills;
+//    }
+
+    public Student( String email, String password, String name, LocalDate dob, String university, String course, String skills) {
+        this.account = new Account(1,email, password);
         this.name = name;
         this.dob = dob;
         this.university = university;
@@ -47,6 +59,13 @@ public class Student extends User {
         this.skills = skills;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
     public UUID getSid() {
         return sid;
     }
@@ -71,14 +90,7 @@ public class Student extends User {
         this.dob = dob;
     }
 
-    @Override
-    public UUID getUid() {
-        return uid;
-    }
 
-    public void setUid(UUID uid) {
-        this.uid = uid;
-    }
 
     public String getUniversity() {
         return university;
@@ -101,22 +113,7 @@ public class Student extends User {
     }
 
     public void setSkills(String skills) {
-        this.skills = skills;
-    }
+        this.skills = skills;    }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "sid='" + sid + '\'' +
-                ", name='" + name + '\'' +
-                ", dob=" + dob +
-                ", uid='" + uid + '\'' +
-                ", university='" + university + '\'' +
-                ", course='" + course + '\'' +
-                ", skills='" + skills + '\'' +
-                ", uid=" + uid +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }
+
