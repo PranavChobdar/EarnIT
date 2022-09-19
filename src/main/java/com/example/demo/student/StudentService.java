@@ -20,6 +20,11 @@ public class StudentService {
     public List<Student> getStudents(){
         return studentRepository.findAll();
     }
+
+    public void addNewStudent(Student student) {
+
+        System.out.println(student.toString());
+    }
 //        return List.of(
 //                new Student(
 //                        UUID.randomUUID(),

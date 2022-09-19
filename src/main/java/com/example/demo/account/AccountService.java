@@ -30,4 +30,8 @@ public class AccountService {
 //                )
 //        );
     }
+
+    public void addNewAccount(Account account) {
+        System.out.println(account.toString());
+    }
 }

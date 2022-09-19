@@ -1,6 +1,7 @@
 package com.example.demo.student;
 
 import com.example.demo.account.Account;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Student{
 
 
     @Id
+    //Generates an UUID for all new objects:
     @GeneratedValue
     @GenericGenerator(
             name = "UUID",
@@ -22,14 +24,28 @@ public class Student{
     @Column(name = "student_id")
     protected UUID sid;
 
-
-
+    //Sets up account_id as an FK in students table
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-    private Account account; //remove
+    @JsonProperty("account")
+    private Account account;
     protected String name;
     protected LocalDate dob;
     protected String university;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "sid=" + sid +
+                ", account=" + account +
+                ", name='" + name + '\'' +
+                ", dob=" + dob +
+                ", university='" + university + '\'' +
+                ", course='" + course + '\'' +
+                ", skills='" + skills + '\'' +
+                '}';
+    }
+
     protected String course;
     protected String skills;
 
@@ -37,21 +53,17 @@ public class Student{
         super();
     }
 
-//    public Student(UUID uid,String email, String password, UUID sid, String name, LocalDate dob, String university, String course, String skills) {
-////        this.uid = uid;
-////        this.email = email;
-////        this.password = password;
-//        super(uid, 1, email, password);
-//        this.sid = UUID.randomUUID();
-//        this.name = name;
-//        this.dob = dob;
-//        this.university = university;
-//        this.course = course;
-//        this.skills = skills;
-//    }
-
     public Student( String email, String password, String name, LocalDate dob, String university, String course, String skills) {
         this.account = new Account(1,email, password);
+        this.name = name;
+        this.dob = dob;
+        this.university = university;
+        this.course = course;
+        this.skills = skills;
+    }
+
+    public Student(Account account, String name, LocalDate dob, String university, String course, String skills) {
+        this.account = account;
         this.name = name;
         this.dob = dob;
         this.university = university;
