@@ -4,7 +4,7 @@ import com.example.demo.account.Account;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ModelMapper {
+public class Mapper {
 
     public Student toStudent(RegisterStudentDTO studentDTO, Account account){
         return new Student(account,studentDTO.getName(), studentDTO.getDob(), studentDTO.getUniversity(),studentDTO.getCourse(),studentDTO.getSkills());

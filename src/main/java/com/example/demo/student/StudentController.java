@@ -40,7 +40,7 @@ public class StudentController {
     @ResponseBody
     public void registerNewStudent(@RequestBody RegisterStudentDTO studentDTO){
         System.out.println(studentDTO.toString());
-        ModelMapper modelMapper = new ModelMapper();
+        Mapper modelMapper = new Mapper();
 
         Account account = modelMapper.toAcccount(studentDTO);
         System.out.println(account.toString());
