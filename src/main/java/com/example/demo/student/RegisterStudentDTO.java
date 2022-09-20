@@ -3,6 +3,7 @@ package com.example.demo.student;
 import java.time.LocalDate;
 
 public class RegisterStudentDTO {
+
     protected String email;
     protected String password;
     protected String name;
@@ -10,9 +11,6 @@ public class RegisterStudentDTO {
     protected String university;
     protected String course;
     protected String skills;
-
-    public RegisterStudentDTO() {
-    }
 
 
     public String getEmail() {

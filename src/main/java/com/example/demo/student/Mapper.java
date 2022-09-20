@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Mapper {
 
-    public Student toStudent(RegisterStudentDTO studentDTO, Account account){
-        return new Student(account,studentDTO.getName(), studentDTO.getDob(), studentDTO.getUniversity(),studentDTO.getCourse(),studentDTO.getSkills());
+    public Student toStudent(RegisterStudentDTO studentDTO){
+        return new Student(studentDTO.getName(), studentDTO.getDob(), studentDTO.getUniversity(),studentDTO.getCourse(),studentDTO.getSkills());
     }
     public Account toAcccount(RegisterStudentDTO studentDTO){
         return new Account(1,studentDTO.getEmail(), studentDTO.getPassword());

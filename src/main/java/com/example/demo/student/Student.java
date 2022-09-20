@@ -25,7 +25,9 @@ public class Student{
     protected UUID sid;
 
     //Sets up account_id as an FK in students table
-    @OneToOne(cascade = CascadeType.ALL)
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "account_id")
 //    @JsonProperty("account")
     private Account account;
@@ -71,13 +73,13 @@ public class Student{
         this.skills = skills;
     }
 
-//    public Student(String name, LocalDate dob, String university, String course, String skills) {
-//        this.name = name;
-//        this.dob = dob;
-//        this.university = university;
-//        this.course = course;
-//        this.skills = skills;
-//    }
+    public Student(String name, LocalDate dob, String university, String course, String skills) {
+        this.name = name;
+        this.dob = dob;
+        this.university = university;
+        this.course = course;
+        this.skills = skills;
+    }
 
     public Account getAccount() {
         return account;
@@ -86,12 +88,9 @@ public class Student{
     public void setAccount(Account account) {
         this.account = account;
     }
+
     public UUID getSid() {
         return sid;
-    }
-
-    public void setSid(UUID sid) {
-        this.sid = sid;
     }
 
     public String getName() {
