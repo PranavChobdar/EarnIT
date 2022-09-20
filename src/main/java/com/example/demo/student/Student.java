@@ -27,12 +27,13 @@ public class Student{
     //Sets up account_id as an FK in students table
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-    @JsonProperty("account")
+//    @JsonProperty("account")
     private Account account;
     protected String name;
     protected LocalDate dob;
     protected String university;
-
+    protected String course;
+    protected String skills;
     @Override
     public String toString() {
         return "Student{" +
@@ -46,8 +47,7 @@ public class Student{
                 '}';
     }
 
-    protected String course;
-    protected String skills;
+
 
     public Student(){
         super();
@@ -70,6 +70,14 @@ public class Student{
         this.course = course;
         this.skills = skills;
     }
+
+//    public Student(String name, LocalDate dob, String university, String course, String skills) {
+//        this.name = name;
+//        this.dob = dob;
+//        this.university = university;
+//        this.course = course;
+//        this.skills = skills;
+//    }
 
     public Account getAccount() {
         return account;

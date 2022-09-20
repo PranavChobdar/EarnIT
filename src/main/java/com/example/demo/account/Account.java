@@ -19,12 +19,15 @@ public class Account {
     protected String email;
     protected String password;
 
+    public Account() {
 
+    }
     public Account(Integer account_type, String email, String password) {
         this.account_type = account_type;
         this.email = email;
         this.password = password;
     }
+
 //
 //    public Account(UUID aid, Integer account_type, String email, String password) {
 //        this.aid = UUID.randomUUID();
@@ -32,10 +35,6 @@ public class Account {
 //        this.email = email;
 //        this.password = password;
 //    }
-
-    public Account() {
-
-    }
 
     public int getAccount_type() {
         return account_type;
@@ -67,6 +66,17 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "aid=" + aid +
+                ", account_type=" + account_type +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
 

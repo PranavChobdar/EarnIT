@@ -74,8 +74,8 @@ public class StudentConfig {
 //                            new User(popa.getUid(), 1, popa.getEmail(), popa.getPassword())
 //                    )
 //            );
-            accountRepository.saveAll(List.of(mariam_account, popa_account));
-            studentRepository.saveAll(List.of(mariam, popa));
+//            accountRepository.saveAll(List.of(mariam_account, popa_account));
+//            studentRepository.saveAll(List.of(mariam, popa));
         };
     }
 }

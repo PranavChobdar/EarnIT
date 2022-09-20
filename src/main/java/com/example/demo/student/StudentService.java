@@ -1,5 +1,7 @@
 package com.example.demo.student;
 
+import com.example.demo.account.AccountRepository;
+import com.example.demo.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.UUID;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final AccountRepository accountRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, AccountRepository accountRepository) {
         this.studentRepository = studentRepository;
+        this.accountRepository = accountRepository;
     }
 
     public List<Student> getStudents(){
@@ -24,6 +28,8 @@ public class StudentService {
     public void addNewStudent(Student student) {
 
         System.out.println(student.toString());
+//        accountRepository.save(student.getAccount());
+        studentRepository.save(student);
     }
 //        return List.of(
 //                new Student(

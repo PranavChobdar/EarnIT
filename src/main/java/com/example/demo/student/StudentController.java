@@ -25,12 +25,28 @@ public class StudentController {
         return studentService.getStudents();
     }
 
+//    @PostMapping
+//    public void registerNewStudent(@RequestBody Student student_payload){
+////        System.out.println(student_frontend.toString());
+//        Account account = new Account(student_payload.email)
+//        Account account = new Account(1, student_payload.getAccount().getEmail(), student_payload.getAccount().getPassword());
+//        Student student = new Student(account, student_payload.getName(), student_payload.getDob(),
+//                student_payload.getUniversity(), student_payload.getCourse(), student_payload.getSkills());
+//        accountService.addNewAccount(account);
+//        studentService.addNewStudent(student);
+//    }
+
     @PostMapping
-    public void registerNewStudent(@RequestBody Student student_frontend){
-//        System.out.println(student_frontend.toString());
-        Account account = new Account(1, student_frontend.getAccount().getEmail(), student_frontend.getAccount().getPassword());
-        Student student = new Student(account, student_frontend.getName(), student_frontend.getDob(),
-                student_frontend.getUniversity(), student_frontend.getCourse(), student_frontend.getSkills());
+    @ResponseBody
+    public void registerNewStudent(@RequestBody RegisterStudentDTO studentDTO){
+        System.out.println(studentDTO.toString());
+        ModelMapper modelMapper = new ModelMapper();
+
+        Account account = modelMapper.toAcccount(studentDTO);
+        System.out.println(account.toString());
+        Student student = modelMapper.toStudent(studentDTO, account);
+//        student.setAccount(account);
+
         accountService.addNewAccount(account);
         studentService.addNewStudent(student);
     }
