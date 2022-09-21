@@ -42,7 +42,7 @@ public class StudentController {
         System.out.println(studentDTO.toString());
         Mapper modelMapper = new Mapper();
 
-        Account account = modelMapper.toAcccount(studentDTO);
+        Account account = modelMapper.toStudentAcccount(studentDTO);
         System.out.println(account.toString());
         Student student = modelMapper.toStudent(studentDTO);
         student.setAccount(account);
