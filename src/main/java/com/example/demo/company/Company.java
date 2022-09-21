@@ -24,6 +24,7 @@ public class Company {
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
     private String name;
     private String field;
     private String location;

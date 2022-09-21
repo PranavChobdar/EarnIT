@@ -15,6 +15,7 @@ public class Account {
     )
     @Column(name = "account_id")
     protected UUID aid;
+
     protected Integer account_type;
     protected String email;
     protected String password;
@@ -48,8 +49,8 @@ public class Account {
         return aid;
     }
 
-    public void setUid(UUID uid) {
-        this.aid = uid;
+    public void setUid(UUID aid) {
+        this.aid = aid;
     }
 
     public String getEmail() {
