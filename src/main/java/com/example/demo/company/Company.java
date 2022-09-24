@@ -1,10 +1,13 @@
 package com.example.demo.company;
 
+import com.example.demo.Application.Application;
+import com.example.demo.Vacancy.Vacancy;
 import com.example.demo.account.Account;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -19,17 +22,22 @@ public class Company {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "company_id")
-    private UUID cid;
+    private UUID company_id;
 
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+
+    @OneToMany(mappedBy = "company")
+    Set<Vacancy> vacancies = new HashSet<>();
 
     private String name;
     private String field;
     private String location;
     private String contact_person;
     private String phone;
+
 
     public Company(){super();}
 
@@ -57,6 +65,23 @@ public class Company {
         this.location = location;
         this.contact_person = contact_person;
         this.phone = phone;
+    }
+    public void addVacancy(Vacancy vacancy){
+        this.vacancies.add(vacancy);
+        vacancy.setCompany(this);
+    }
+    public void updateVacancy(Vacancy oldVacancy, Vacancy newVacancy){
+        this.vacancies.remove(oldVacancy);
+        this.vacancies.add(newVacancy);
+        newVacancy.setCompany(this);
+    }
+
+    public void removeVacancy(Vacancy vacancy){
+//        THIS REMOVES the Applications for this vacancy for all students
+        for(Application a : vacancy.getApplications()){
+            a.getStudent().removeApplication(a,vacancy);
+        }
+        this.vacancies.remove(vacancy);
     }
 
     public Account getAccount() {
@@ -110,7 +135,7 @@ public class Company {
     @Override
     public String toString() {
         return "Company{" +
-                "cid=" + cid +
+                "cid=" + company_id +
                 ", account=" + account +
                 ", name='" + name + '\'' +
                 ", text='" + field + '\'' +

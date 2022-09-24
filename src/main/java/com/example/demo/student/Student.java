@@ -1,10 +1,14 @@
 package com.example.demo.student;
 
+import com.example.demo.Application.Application;
+import com.example.demo.Vacancy.Vacancy;
 import com.example.demo.account.Account;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -30,24 +34,42 @@ public class Student{
     @JoinColumn(name = "account_id")
 //    @JsonProperty("account")
     private Account account;
+
+    @OneToMany(mappedBy = "student")
+    Set<Application> applications = new HashSet<>();
+
     protected String name;
     protected LocalDate dob;
     protected String university;
     protected String course;
     protected String skills;
-    @Override
-    public String toString() {
-        return "Student{" +
-                "sid=" + student_id +
-                ", account=" + account +
-                ", name='" + name + '\'' +
-                ", dob=" + dob +
-                ", university='" + university + '\'' +
-                ", course='" + course + '\'' +
-                ", skills='" + skills + '\'' +
-                '}';
-    }
 
+
+
+   public void addApplication(Application application, Vacancy vacancy){
+       this.applications.add(application);
+       application.setStudent(this);
+       vacancy.addApplication(application);
+   }
+   public void updateApplication(Application oldApplication, Application newApplication, Vacancy vacancy){
+       this.applications.remove(oldApplication);
+       this.applications.add(newApplication);
+       newApplication.setStudent(this);
+       vacancy.updateApplication(oldApplication, newApplication);
+   }
+   public void removeApplication(Application application, Vacancy vacancy){
+       this.applications.remove(application);
+//       application.setStudent(this);
+       vacancy.removeApplication(application);
+   }
+
+   public Application findApplicationMatch(Application application){
+       for (Application app : this.applications){
+           if (app.equals(application)){
+               return app;
+           }
+       }
+   }
 
 
     public Student(){
@@ -133,5 +155,17 @@ public class Student{
     public void setSkills(String skills) {
         this.skills = skills;    }
 
+    @Override
+    public String toString() {
+        return "Student{" +
+                "sid=" + student_id +
+                ", account=" + account +
+                ", name='" + name + '\'' +
+                ", dob=" + dob +
+                ", university='" + university + '\'' +
+                ", course='" + course + '\'' +
+                ", skills='" + skills + '\'' +
+                '}';
+    }
 }
 
