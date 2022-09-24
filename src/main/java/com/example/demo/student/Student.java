@@ -1,7 +1,6 @@
 package com.example.demo.student;
 
 import com.example.demo.account.Account;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,7 +21,7 @@ public class Student{
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "student_id")
-    protected UUID sid;
+    protected UUID student_id;
 
     //Sets up account_id as an FK in students table
 //    @OneToOne(cascade = CascadeType.ALL)
@@ -39,7 +38,7 @@ public class Student{
     @Override
     public String toString() {
         return "Student{" +
-                "sid=" + sid +
+                "sid=" + student_id +
                 ", account=" + account +
                 ", name='" + name + '\'' +
                 ", dob=" + dob +
@@ -89,8 +88,8 @@ public class Student{
         this.account = account;
     }
 
-    public UUID getSid() {
-        return sid;
+    public UUID getStudent_id() {
+        return student_id;
     }
 
     public String getName() {

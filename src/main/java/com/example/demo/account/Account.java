@@ -14,7 +14,7 @@ public class Account {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "account_id")
-    protected UUID aid;
+    protected UUID account_id;
 
     protected Integer account_type;
     protected String email;
@@ -45,12 +45,12 @@ public class Account {
         this.account_type = account_type;
     }
 
-    public UUID getUid() {
-        return aid;
+    public UUID getAccount_id() {
+        return account_id;
     }
 
-    public void setUid(UUID aid) {
-        this.aid = aid;
+    public void setAccount_id(UUID aid) {
+        this.account_id = aid;
     }
 
     public String getEmail() {
@@ -73,7 +73,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "aid=" + aid +
+                "aid=" + account_id +
                 ", account_type=" + account_type +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
