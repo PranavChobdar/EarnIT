@@ -39,11 +39,9 @@ public class StudentController {
     @PostMapping
     @ResponseBody
     public void registerNewStudent(@RequestBody RegisterStudentDTO studentDTO){
-        System.out.println(studentDTO.toString());
         Mapper modelMapper = new Mapper();
 
         Account account = modelMapper.toStudentAcccount(studentDTO);
-        System.out.println(account.toString());
         Student student = modelMapper.toStudent(studentDTO);
         student.setAccount(account);
 

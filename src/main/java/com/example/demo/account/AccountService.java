@@ -32,7 +32,7 @@ public class AccountService {
     }
 
     public void addNewAccount(Account account) {
-        System.out.println(account.toString());
+//        System.out.println(account.toString());
         accountRepository.save(account);
     }
 }

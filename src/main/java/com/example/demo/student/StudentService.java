@@ -27,7 +27,7 @@ public class StudentService {
 
     public void addNewStudent(Student student) {
 
-        System.out.println(student.toString());
+//        System.out.println(student.toString());
 //        accountRepository.save(student.getAccount());
         studentRepository.save(student);
     }
