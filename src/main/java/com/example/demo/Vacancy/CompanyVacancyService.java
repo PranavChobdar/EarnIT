@@ -20,15 +20,11 @@ public class CompanyVacancyService {
         this.companyRepository = companyRepository;
     }
 
-    public void addVacancyToCompany(UUID company_id, Vacancy vacancy){
-        Company company = companyRepository.findById(company_id);
+    public void addVacancyToCompany(UUID company_id, Vacancy vacancy) throws Exception {
+        Company company = companyRepository.findById(company_id).orElseThrow(() -> new Exception("There is no such company!"));
         company.addVacancy(vacancy);
-
-
-
-        Movie movie = moviesRepository.findById(movieId);
-        movie.addComment(comment);
-        movieCommentsRepository.save(comment);
-        moviesRepository.save(movie);
+        vacancy.setCompany(company);
+        companyVacancyRepository.save(vacancy);
+        companyRepository.save(company);
     }
 }

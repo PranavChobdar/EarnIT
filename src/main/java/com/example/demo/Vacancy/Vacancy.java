@@ -27,7 +27,7 @@ public class Vacancy {
     private String position;
     private String method_of_work;
 
-    @OneToMany(mappedBy = "vacancy")
+    @OneToMany(mappedBy = "vacancy", fetch = FetchType.EAGER)
     private Set<Application> applications = new HashSet<>();
 
 

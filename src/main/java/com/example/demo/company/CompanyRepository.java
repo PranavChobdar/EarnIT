@@ -7,5 +7,5 @@ import java.util.UUID;
 /** Interface reponsible for data access */
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, UUID> {
-    Company findById(UUID id);
+//    Company findById(UUID id);
 }

@@ -4,6 +4,7 @@ import com.example.demo.Vacancy.Vacancy;
 import com.example.demo.student.Student;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * One Student can have many applications for many vacancies to many Companies
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="applications")
-public class Application {
+public class Application implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name="student_id")

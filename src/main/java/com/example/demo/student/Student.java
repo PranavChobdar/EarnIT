@@ -35,7 +35,7 @@ public class Student{
 //    @JsonProperty("account")
     private Account account;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     Set<Application> applications = new HashSet<>();
 
     protected String name;
@@ -63,13 +63,13 @@ public class Student{
        vacancy.removeApplication(application);
    }
 
-   public Application findApplicationMatch(Application application){
-       for (Application app : this.applications){
-           if (app.equals(application)){
-               return app;
-           }
-       }
-   }
+//   public Application findApplicationMatch(Application application){
+//       for (Application app : this.applications){
+//           if (app.equals(application)){
+//               return app;
+//           }
+//       }
+//   }
 
 
     public Student(){

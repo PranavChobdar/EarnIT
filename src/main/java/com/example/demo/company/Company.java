@@ -30,7 +30,7 @@ public class Company implements Serializable {
     private Account account;
 
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     Set<Vacancy> vacancies = new HashSet<>();
 
     private String name;

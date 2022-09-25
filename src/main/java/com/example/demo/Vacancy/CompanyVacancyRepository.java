@@ -7,4 +7,5 @@ import java.util.Set;
 
 public interface CompanyVacancyRepository extends VacancyRepository {
     Set<Vacancy> findAllByCompany(Company company);
+
 }
