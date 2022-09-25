@@ -6,13 +6,14 @@ import com.example.demo.account.Account;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name="companies")
-public class Company {
+public class Company implements Serializable {
 
     @Id
     //Generates an UUID for all new objects:

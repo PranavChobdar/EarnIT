@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
-@RequestMapping(path = "api/v1/vacancy")
 public class VacancyController {
 
     private final VacancyService vacancyService; //This is the Java Bean
@@ -22,25 +22,16 @@ public class VacancyController {
         this.vacancyService = vacancyService;
     }
 
-    @GetMapping
+
+    @GetMapping("/api/vacancies/{id}")
+    public Vacancy getCommentById(@PathVariable UUID id) throws Exception {
+        return vacancyService.getVacancyById(id);
+    }
+
+    @GetMapping("/api/vacancies")
     public List<Vacancy> getVacancies(){
         return vacancyService.getVacancies();
     }
 
 
-
-    @PostMapping
-    @ResponseBody
-    public void registerNewStudent(@RequestBody RegisterStudentDTO studentDTO){
-        System.out.println(studentDTO.toString());
-        Mapper modelMapper = new Mapper();
-
-        Account account = modelMapper.toStudentAcccount(studentDTO);
-        System.out.println(account.toString());
-        Student student = modelMapper.toStudent(studentDTO);
-        student.setAccount(account);
-
-        accountService.addNewAccount(account);
-        studentService.addNewStudent(student);
-    }
 }
