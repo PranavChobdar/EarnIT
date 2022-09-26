@@ -8,18 +8,9 @@ import java.util.UUID;
 
 public class VacancyDTO {
 
-    protected UUID vacancy_id;
     private UUID company_id;
     private String position;
     private String method_of_work;
-
-    public UUID getVacancy_id() {
-        return vacancy_id;
-    }
-
-    public void setVacancy_id(UUID vacancy_id) {
-        this.vacancy_id = vacancy_id;
-    }
 
     public UUID getCompany_id() {
         return company_id;

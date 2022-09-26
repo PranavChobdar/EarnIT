@@ -21,7 +21,7 @@ public class CompanyVancancyController {
     }
 
     @PostMapping("/api/companies/{company_id}/vacancies")
-    public void addCommentToMovie(@RequestBody VacancyDTO vacancyDTO, @PathVariable UUID company_id) throws Exception {
+    public void addVacancyToCompany(@RequestBody VacancyDTO vacancyDTO, @PathVariable UUID company_id) throws Exception {
         Vacancy vacancy = convertToVacancy(vacancyDTO);
         companyVacancyService.addVacancyToCompany(company_id, vacancy);
     }
