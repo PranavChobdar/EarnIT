@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/v1/student")
+//@RequestMapping(path = "api/student")
 public class StudentController {
 
     private final StudentService studentService; //This is the Java Bean
@@ -20,7 +21,7 @@ public class StudentController {
         this.accountService = accountService;
     }
 
-    @GetMapping
+    @GetMapping("/api/student")
     public List<Student> getStudents(){
         return studentService.getStudents();
     }
@@ -36,7 +37,7 @@ public class StudentController {
 //        studentService.addNewStudent(student);
 //    }
 
-    @PostMapping
+    @PostMapping("/api/student/create")
     @ResponseBody
     public void registerNewStudent(@RequestBody RegisterStudentDTO studentDTO){
         System.out.println(studentDTO.toString());
@@ -50,4 +51,11 @@ public class StudentController {
         accountService.addNewAccount(account);
         studentService.addNewStudent(student);
     }
+    @DeleteMapping("/api/student/delete/{student_id}/{account_id}")
+    public void deleteStudent(@PathVariable("student_id") UUID student_id, @PathVariable("account_id") UUID account_id){
+//        accountService.deleteAccount(account_id);
+        studentService.deleteStudent(student_id);
+
+    }
+
 }

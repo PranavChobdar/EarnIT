@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AccountService {
@@ -31,8 +33,21 @@ public class AccountService {
 //        );
     }
 
-    public void addNewAccount(Account account) {
+    public void addNewAccount(Account account){
+        Optional<Account> accountByEmail = accountRepository.
+                findAccountByEmail(account.getEmail());
+        if(accountByEmail.isPresent()){
+            throw new IllegalStateException("Email is taken!");
+        }
         System.out.println(account.toString());
         accountRepository.save(account);
+    }
+
+    public void deleteAccount(UUID account_id) {
+        boolean exists = accountRepository.existsById(account_id);
+        if(!exists){
+            throw new IllegalStateException("Account with id" + account_id + "does not exist!");
+        }
+        accountRepository.deleteById(account_id);
     }
 }

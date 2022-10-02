@@ -24,7 +24,7 @@ public class VacancyController {
 
 
     @GetMapping("/api/vacancies/{id}")
-    public Vacancy getCommentById(@PathVariable UUID id) throws Exception {
+    public Vacancy getVacancyById(@PathVariable UUID id) throws Exception {
         return vacancyService.getVacancyById(id);
     }
 

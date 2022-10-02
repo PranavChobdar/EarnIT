@@ -1,5 +1,6 @@
 package com.example.demo.student;
 
+import com.example.demo.account.Account;
 import com.example.demo.account.AccountRepository;
 import com.example.demo.account.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,29 @@ public class StudentService {
         System.out.println(student.toString());
 //        accountRepository.save(student.getAccount());
         studentRepository.save(student);
+    }
+
+    public void deleteStudent(UUID student_id) {
+        Student student = studentRepository.findById(student_id).get();
+
+        boolean exists = studentRepository.existsById(student_id);
+//        Student student = studentRepository.findById(student_id);
+
+        if(!exists){
+            throw new IllegalStateException("Student with id" + student_id + "does not exist!");
+        }
+
+        UUID account_id = student.getAccount().getAccount_id();
+        exists = accountRepository.existsById(account_id);
+
+        if(!exists){
+            throw new IllegalStateException("Account with id" + account_id + "does not exist!");
+        }
+
+        student.setAccount(null);
+        studentRepository.save(student);
+        studentRepository.deleteById(student_id);
+        accountRepository.deleteById(account_id);
     }
 //        return List.of(
 //                new Student(

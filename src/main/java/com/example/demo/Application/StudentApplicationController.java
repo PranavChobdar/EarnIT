@@ -21,4 +21,8 @@ public class StudentApplicationController {
     public void addApplication(@PathVariable UUID student_id, @PathVariable UUID vacancy_id) throws Exception{
         studentApplicationService.addApplication(student_id, vacancy_id);
     }
+
+
+
+
 }

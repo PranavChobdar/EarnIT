@@ -4,6 +4,8 @@ import com.example.demo.Application.Application;
 import com.example.demo.Vacancy.Vacancy;
 import com.example.demo.account.Account;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,9 +32,10 @@ public class Student{
     //Sets up account_id as an FK in students table
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @OneToOne(cascade = CascadeType.ALL)
-    @OneToOne
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(cascade=CascadeType.REMOVE)
     @JoinColumn(name = "account_id")
-//    @JsonProperty("account")
+//    @Column(name = "account_id")
     private Account account;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
