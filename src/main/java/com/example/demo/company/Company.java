@@ -3,6 +3,7 @@ package com.example.demo.company;
 import com.example.demo.Application.Application;
 import com.example.demo.Vacancy.Vacancy;
 import com.example.demo.account.Account;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,12 +26,13 @@ public class Company implements Serializable {
     @Column(name = "company_id")
     private UUID company_id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "account_id")
     private Account account;
 
 
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+//    @JsonIgnoreProperties("companies")
     Set<Vacancy> vacancies = new HashSet<>();
 
     private String name;
@@ -83,6 +85,14 @@ public class Company implements Serializable {
             a.getStudent().removeApplication(a,vacancy);
         }
         this.vacancies.remove(vacancy);
+    }
+
+    public UUID getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(UUID company_id) {
+        this.company_id = company_id;
     }
 
     public Account getAccount() {

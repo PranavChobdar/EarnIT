@@ -2,6 +2,7 @@ package com.example.demo.Vacancy;
 
 import com.example.demo.Application.Application;
 import com.example.demo.company.Company;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,12 +23,14 @@ public class Vacancy {
     protected UUID vacancy_id;
 
     @ManyToOne
+//    @JsonIgnoreProperties("vacancies")
     @JoinColumn(name="company_id")
     private Company company;
     private String position;
     private String method_of_work;
 
     @OneToMany(mappedBy = "vacancy", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("vacancy")
     private Set<Application> applications = new HashSet<>();
 
 
@@ -56,6 +59,14 @@ public class Vacancy {
     public void removeApplication(Application application){
         this.applications.remove(application);
 //        application.setVacancy(this);
+    }
+
+    public UUID getVacancy_id() {
+        return vacancy_id;
+    }
+
+    public void setVacancy_id(UUID vacancy_id) {
+        this.vacancy_id = vacancy_id;
     }
 
     public Set<Application> getApplications() {
